@@ -349,6 +349,10 @@ pub fn region_from_str(s: Option<String>, p: Option<u32>) -> Option<Region> {
     let port = p.unwrap_or(8000);
     match s.as_deref() {
         Some("local") => Some(region_dynamodb_local(port)),
+        Some("me-central-1") => Some(Region::Custom {
+            name: "me-central-1".to_owned(),
+            endpoint: "https://dynamodb.me-central-1.amazonaws.com".to_owned()
+        }),
         Some(x) => Region::from_str(x).ok(), // convert Result<T, E> into Option<T>
         None => None,
     }
